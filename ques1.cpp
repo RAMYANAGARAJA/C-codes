@@ -1,25 +1,30 @@
-//printing pyramid pattern
-#include<iostream>
+#include <iostream>
+#include <vector>
 using namespace std;
-int main()
-{
-   int N;
-    cin >> N;
 
-    for (int i = 1; i <= N; ++i)
-        {
-        for (int j = 1; j <= N - i; ++j)
-         {
-            cout << " ";
-        }
-        for (int j = i; j >= 1; --j)
-        {
-            cout << j;
-        }
-        for (int j = 2; j <= i; ++j)
-        {
-            cout << j;
-        }
-        cout << endl;
+void solve(int l, int r, const vector<long long>& pre) {
+    cout << pre[r - 1] - ((l == 1) ? 0 : pre[l - 2]) << " ";
+}
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+    vector<long long> v(n);
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
     }
+
+    vector<long long> pre(n);
+    pre[0] = v[0];
+    for (int i = 1; i < n; i++) {
+        pre[i] = pre[i - 1] + v[i];
+    }
+
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        solve(l, r, pre);
+    }
+
+    return 0;
 }
